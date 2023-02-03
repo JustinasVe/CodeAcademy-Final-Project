@@ -19,5 +19,12 @@ const mysqlConfig = {
 
 const connection = mysql.createConnection(mysqlConfig);
 
+app.get('/attendees', (req, res) => {
+    const { userId } = req.query;
+    connection.execute('SELECT * FROM attendees WHERE userId=?', [userId], (err, attendees) => {
+        res.send(attendees)
+    });
+});
+
 const PORT = 8000;
 app.listen(PORT, () => console.log(`Express server is running on PORT: ${PORT}`));
