@@ -1,6 +1,7 @@
 const cors = require('cors');
 const express = require('express');
 const mysql = require('mysql2');
+const bcrypt = require('bcrypt');
 
 require('dotenv').config();
 
@@ -28,6 +29,7 @@ app.get('/attendees', (req, res) => {
 
 app.post('/attendees', (req, res) => {
     const { name, surname, email, phoneNumber, userId } = req.body;
+
     connection.execute(
         'INSERT INTO attendees (name, surname, email, phoneNumber, userId) VALUES (?, ?, ?, ?, ?)',
         [name, surname, email, phoneNumber, userId],
@@ -45,11 +47,35 @@ app.post('/attendees', (req, res) => {
 
 app.post('/register', (req, res) => {
     const { name, surname, email, password } = req.body;
+    const hashedPassword = bcrypt.hashSync(password, 12);
+
     connection.execute(
         'INSERT INTO users (name, surname, email, password) VALUES (?, ?, ?, ?)',
-        [name, surname, email, password],
+        [name, surname, email, hashedPassword],
         (err, result) => {
             res.sendStatus(200);
+        }
+    )
+});
+
+app.post('/login', (req, res) => {
+    const { email, password } = req.body;
+    
+    connection.execute(
+        'SELECT * FROM users WHERE email=?',
+        [email],
+        (err, result) => {
+            if (result.length === 0) {
+                res.send('Incorrect email or password');
+            } else {
+                const passwordHash = result[0].password
+                const isPasswordCorrect = bcrypt.compareSync(password, passwordHash);
+                if (isPasswordCorrect) {
+                    res.send('Successfully logged in!');
+                } else {
+                    res.send('Incorrect email or password');
+                }
+            }
         }
     )
 });
