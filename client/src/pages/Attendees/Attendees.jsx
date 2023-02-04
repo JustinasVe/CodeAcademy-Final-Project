@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
+import { API_URL, LOGGED_IN_USER } from "../../constants/constants";
 
 export const Attendees = () => {
     const [attendees, setAttendees] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        fetch('http://localhost:8000/attendees?userId=2')
+        fetch(`${API_URL}/attendees?userId=${LOGGED_IN_USER.id}`)
             .then(res => res.json())
             .then(data => {
                 setAttendees(data);
