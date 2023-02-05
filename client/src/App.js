@@ -1,13 +1,26 @@
-import { Route, Routes } from "react-router-dom";
+import { useState } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import { PageLayout } from "./components/PageLayout/PageLayout";
 import Attendees from "./pages/Attendees";
+import { Login } from "./pages/Login/Login";
 
 
 function App() {
+  const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+
+  const handleLoginSuccess = (user) => {
+    setUser(user);
+    navigate('/');
+  }
+
   return (
     <div>
       <Routes>
-        <Route path="/" element={<div>Home route</div>} />
-        <Route path="/attendees" element={<Attendees />}/>
+        <Route path="/" element={<PageLayout user={user}/>}>
+          <Route index element={<Attendees />} />
+        </Route>
+        <Route path="/login" element={<Login onSuccess={handleLoginSuccess} />} />
       </Routes>
     </div>
   );
