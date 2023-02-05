@@ -53,7 +53,7 @@ app.post('/register', (req, res) => {
         'INSERT INTO users (name, surname, email, password) VALUES (?, ?, ?, ?)',
         [name, surname, email, hashedPassword],
         (err, result) => {
-            res.sendStatus(200);
+            res.send(result);
         }
     )
 });
