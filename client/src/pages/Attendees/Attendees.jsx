@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { Button } from "../../components/Button/Button";
+import { Input } from "../../components/Input/Input";
 import { LOGGED_IN_USER } from "../../constants/constants";
 
 export const Attendees = () => {
@@ -50,33 +52,33 @@ export const Attendees = () => {
     return (
         <div>
             <form onSubmit={handleAttendeeAdd}>
-                <input 
+                <Input 
                     placeholder="Name" 
                     required 
                     onChange={(e) => setName(e.target.value)}
                     value={name}
                 />
-                <input 
+                <Input 
                     placeholder="Surname" 
                     required
                     onChange={(e) => setSurname(e.target.value)}
                     value={surname}
                 />
-                <input 
+                <Input 
                     placeholder="Email" 
                     required 
                     type="email" 
                     onChange={(e) => setEmail(e.target.value)}
                     value={email}
                 />
-                <input 
+                <Input 
                     placeholder="Phone number" 
                     required 
                     type="tel" 
                     onChange={(e) => setPhoneNumber(e.target.value)}
                     value={phoneNumber}
                 />
-                <button>Add</button>
+                <Button>Add</Button>
             </form>
             {attendees.map((attendee) => 
                 <div key={attendee.id}>
