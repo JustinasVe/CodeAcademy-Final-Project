@@ -96,5 +96,15 @@ app.post('/login', (req, res) => {
     )
 });
 
+app.get('/token/verify', (req, res) => {
+    try {
+        const token = req.headers.authorization.split(' ')[1];
+        const user = jwt.verify(token, process.env.JWT_SECRET_KEY);
+        res.send(user);
+    } catch(e) {
+        res.send({ error: 'Invalid Token'});
+    }
+});
+
 const PORT = 8000;
 app.listen(PORT, () => console.log(`Express server is running on PORT: ${PORT}`));
