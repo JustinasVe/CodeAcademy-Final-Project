@@ -21,10 +21,15 @@ const mysqlConfig = {
 
 const connection = mysql.createConnection(mysqlConfig);
 
+const getUserFromToken = (req) => {
+    const token = req.headers.authorization.split(' ')[1];
+    const user = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    return user;
+}
+
 const verifyToken = (req, res, next) => {
     try {
-        const token = req.headers.authorization.split(' ')[1];
-        jwt.verify(token, process.env.JWT_SECRET_KEY);
+        getUserFromToken(req);
         next();
     } catch(e) {
         res.send({ error: 'Invalid Token' });
@@ -32,22 +37,24 @@ const verifyToken = (req, res, next) => {
 }
 
 app.get('/attendees', verifyToken, (req, res) => {
-    const { userId } = req.query;
-    connection.execute('SELECT * FROM attendees WHERE userId=?', [userId], (err, attendees) => {
+    const user = getUserFromToken(req);
+
+    connection.execute('SELECT * FROM attendees WHERE userId=?', [user.id], (err, attendees) => {
         res.send(attendees)
     });
 });
 
 app.post('/attendees', verifyToken, (req, res) => {
-    const { name, surname, email, phoneNumber, userId } = req.body;
+    const { name, surname, email, phoneNumber } = req.body;
+    const { id } = getUserFromToken(req);
 
     connection.execute(
         'INSERT INTO attendees (name, surname, email, phoneNumber, userId) VALUES (?, ?, ?, ?, ?)',
-        [name, surname, email, phoneNumber, userId],
+        [name, surname, email, phoneNumber, id],
         () => {
             connection.execute(
                 'SELECT * FROM attendees WHERE userId=?', 
-                [userId],
+                [id],
                 (err, attendees) => {
                     res.send(attendees);
                 }
@@ -98,8 +105,7 @@ app.post('/login', (req, res) => {
 
 app.get('/token/verify', (req, res) => {
     try {
-        const token = req.headers.authorization.split(' ')[1];
-        const user = jwt.verify(token, process.env.JWT_SECRET_KEY);
+        const user = getUserFromToken(req)
         res.send(user);
     } catch(e) {
         res.send({ error: 'Invalid Token'});
