@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Button } from "../../components/Button/Button";
 import { Input } from "../../components/Input/Input";
-import { LOGGED_IN_USER } from "../../constants/constants";
+import { UserContext } from "../../contexts/UserContextWrapper";
 
 export const Attendees = () => {
     const [attendees, setAttendees] = useState([]);
@@ -10,15 +10,16 @@ export const Attendees = () => {
     const [surname, setSurname] = useState('');
     const [email, setEmail] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
+    const { user } = useContext(UserContext);
 
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_API_URL}/attendees?userId=${LOGGED_IN_USER.id}`)
+        fetch(`${process.env.REACT_APP_API_URL}/attendees?userId=${user.id}`)
             .then(res => res.json())
             .then(data => {
                 setAttendees(data);
                 setIsLoading(false);
             });
-    }, []);
+    }, [user.id]);
 
     if (isLoading) {
         return <div>Loading...</div>;
@@ -36,7 +37,7 @@ export const Attendees = () => {
                 surname,
                 email,
                 phoneNumber,
-                userId: 2
+                userId: user.id
             })
         })
         .then((res) => res.json())
