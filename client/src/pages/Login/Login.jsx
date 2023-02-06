@@ -2,6 +2,7 @@ import { useContext, useState } from "react"
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../../components/Button/Button";
 import { Input } from "../../components/Input/Input";
+import { LOCAL_STORAGE_JWT_TOKEN_KEY } from "../../constants/constants";
 import { UserContext } from "../../contexts/UserContextWrapper";
 
 export const Login = () => {
@@ -38,7 +39,9 @@ export const Login = () => {
             return res.json();
         })
         .then((data) => {
-            setUser(data);
+            const { id, email, token } = data;
+            localStorage.setItem(LOCAL_STORAGE_JWT_TOKEN_KEY, token);
+            setUser({ id, email });
             setIsLoading(false);
             setError('');
             navigate('/')
