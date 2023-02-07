@@ -57,6 +57,7 @@ export const Login = () => {
             <form onSubmit={handleLogin} disabled={isLoading} >
                 <Input 
                     placeholder="Email"
+                    type="email"
                     onChange={(e) => setEmail(e.target.value)}
                     value={email}
                 />

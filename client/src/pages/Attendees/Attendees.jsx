@@ -83,9 +83,10 @@ export const Attendees = () => {
                     value={email}
                 />
                 <Input 
-                    placeholder="Phone number" 
+                    placeholder="Mob: 86XXXXXXX" 
                     required 
-                    type="tel" 
+                    type="number"
+                    min="0"
                     onChange={(e) => setPhoneNumber(e.target.value)}
                     value={phoneNumber}
                 />

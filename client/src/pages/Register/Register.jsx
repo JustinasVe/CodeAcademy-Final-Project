@@ -56,23 +56,27 @@ export const Register = () => {
                 <Input 
                     placeholder="Name"
                     onChange={(e) => setName(e.target.value)}
+                    required
                     value={name}
                 />
                 <Input 
                     placeholder="Surname"
                     onChange={(e) => setSurname(e.target.value)}
+                    required
                     value={surname}
                 />
                 <Input 
                     placeholder="Email"
                     type="email"
                     onChange={(e) => setEmail(e.target.value)}
+                    required
                     value={email}
                 />
                 <Input 
                     placeholder="Password"
                     type="password" 
                     onChange={(e) => setPassword(e.target.value)}
+                    required
                     value={password}
                 />
                 {error && <div>{error}</div>}
