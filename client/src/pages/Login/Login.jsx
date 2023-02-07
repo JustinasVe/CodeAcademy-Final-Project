@@ -4,6 +4,40 @@ import { Button } from "../../components/Button/Button";
 import { Input } from "../../components/Input/Input";
 import { LOCAL_STORAGE_JWT_TOKEN_KEY } from "../../constants/constants";
 import { UserContext } from "../../contexts/UserContextWrapper";
+import styled from "styled-components";
+
+const MainContainer = styled.div`
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 80vh;
+    width: 30vw;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135,0.37);
+    backdrop-filter: blur(8.5px);
+    border-radius: 10px;
+`;
+
+const EventsOrganizerText = styled.h1`
+    margin: 3rem 0 2rem 0;
+`;
+
+const StyledForm = styled.form`
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 20%;
+    width: 100%;
+    /* justify-content: space-around; */
+`;
+
+const ErrorStyled = styled.div`
+    color: red;
+    font-weight: bold;
+    letter-spacing: 5px;
+    text-align: center;
+`;
+
 
 export const Login = () => {
     const [email, setEmail] = useState('');
@@ -53,24 +87,25 @@ export const Login = () => {
     }
 
     return (
-        <>
-            <form onSubmit={handleLogin} disabled={isLoading} >
-                <Input 
-                    placeholder="Email"
-                    type="email"
-                    onChange={(e) => setEmail(e.target.value)}
-                    value={email}
-                />
-                <Input 
-                    placeholder="Password"
-                    type="password" 
-                    onChange={(e) => setPassword(e.target.value)}
-                    value={password}
-                />
-                {error && <div>{error}</div>}
-                <Button>Login</Button>
-            </form>
-            <Link to="/register">Register</Link>
-        </>
+        <MainContainer>
+            <EventsOrganizerText>Events Organizer</EventsOrganizerText>
+                <StyledForm onSubmit={handleLogin} disabled={isLoading} >
+                    <Input 
+                        placeholder="Email"
+                        type="email"
+                        onChange={(e) => setEmail(e.target.value)}
+                        value={email}
+                    />
+                    <Input 
+                        placeholder="Password"
+                        type="password" 
+                        onChange={(e) => setPassword(e.target.value)}
+                        value={password}
+                    />
+                    {error && <ErrorStyled>{error}</ErrorStyled>}
+                    <Button>Login</Button>
+                    <Link to="/register">Register</Link>
+                </StyledForm>
+        </MainContainer>
     )
 }
