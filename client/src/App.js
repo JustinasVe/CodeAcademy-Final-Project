@@ -1,12 +1,12 @@
 import { useContext, useEffect } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import { PageLayout } from "./components/PageLayout/PageLayout";
-import { LOCAL_STORAGE_JWT_TOKEN_KEY } from "./constants/constants";
+import PageLayout from "./components/PageLayout";
+import LOCAL_STORAGE_JWT_TOKEN_KEY from "./constants";
 import { UserContext} from "./contexts/UserContextWrapper";
 import Attendees from "./pages/Attendees";
-import { Login } from "./pages/Login/Login";
-import { NotFound } from "./pages/NotFound/NotFound";
-import { Register } from "./pages/Register/Register";
+import Login from "./pages/Login";
+import NotFound from "./pages/NotFound";
+import Register from "./pages/Register";
 
 function App() {
   const { setUser } = useContext(UserContext);

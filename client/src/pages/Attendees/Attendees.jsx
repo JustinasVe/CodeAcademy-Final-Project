@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from "react";
-import { Button } from "../../components/Button/Button";
-import { Input } from "../../components/Input/Input";
-import { LOCAL_STORAGE_JWT_TOKEN_KEY } from "../../constants/constants";
 import { UserContext } from "../../contexts/UserContextWrapper";
 import styled from "styled-components";
 import { Trash } from "phosphor-react"
+import LOCAL_STORAGE_JWT_TOKEN_KEY from "../../constants";
+import Input from "../../components/Input";
+import Button from "../../components/Button";
 
 const AttendeesListWrapper = styled.div`
     align-items: center;

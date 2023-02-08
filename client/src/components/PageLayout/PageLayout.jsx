@@ -2,8 +2,8 @@ import { useContext } from "react";
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContextWrapper";
 import styled from "styled-components";
-import { LOCAL_STORAGE_JWT_TOKEN_KEY } from "../../constants/constants";
 import { Globe, List } from "phosphor-react"
+import LOCAL_STORAGE_JWT_TOKEN_KEY from "../../constants";
 
 const Header = styled.div`
     background-color: #8fbc8f;

@@ -1,10 +1,10 @@
 import { useContext, useState } from "react"
 import { Link, useNavigate } from "react-router-dom";
-import { Button } from "../../components/Button/Button";
-import { Input } from "../../components/Input/Input";
-import { LOCAL_STORAGE_JWT_TOKEN_KEY } from "../../constants/constants";
 import { UserContext } from "../../contexts/UserContextWrapper";
 import styled from "styled-components";
+import LOCAL_STORAGE_JWT_TOKEN_KEY from "../../constants";
+import Input from "../../components/Input";
+import Button from "../../components/Button";
 
 const MainContainer = styled.div`
     align-items: center;
