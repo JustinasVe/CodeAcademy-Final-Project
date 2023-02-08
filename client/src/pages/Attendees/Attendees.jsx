@@ -4,6 +4,7 @@ import { Input } from "../../components/Input/Input";
 import { LOCAL_STORAGE_JWT_TOKEN_KEY } from "../../constants/constants";
 import { UserContext } from "../../contexts/UserContextWrapper";
 import styled from "styled-components";
+import { Trash } from "phosphor-react"
 
 const AttendeesList = styled.ul`
     display: flex;
@@ -12,16 +13,37 @@ const AttendeesList = styled.ul`
     background-color: #ffffff;
 `;
 
+const HoverOverlay = styled.div`
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.1);
+    content: '';
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    left: 0;
+    position: absolute;
+    width: 100%;
+`;
+
 const AttendeesListItem = styled.li`
     align-items: center;
     border-radius: 10px;
     box-shadow: 0 5px 7px -1px rgb(51 51 51 / 23%);
-    /* cursor: pointer; */
+    cursor: pointer;
     display: flex;
     justify-content: space-between;
     overflow: hidden;
     padding: 10px 30px;
     position: relative;
+
+    ${HoverOverlay} {
+        visibility: hidden;
+    }
+    &:hover {
+        ${HoverOverlay} {
+            visibility: visible;
+        }
+    }
 `;
 
 const AttendeeInfo = styled.span`
@@ -99,6 +121,21 @@ export const Attendees = () => {
         });
     }
 
+    const handleDeleteAttendee = (id) => {
+        if (window.confirm('Do you really want to delete this attendee?')) {
+            fetch(`${process.env.REACT_APP_API_URL}/attendees/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    authorization: 'Bearer ' + localStorage.getItem(LOCAL_STORAGE_JWT_TOKEN_KEY)
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                setAttendees(data);
+            });
+        }
+    }
+
     return (
         <AttendeesList>
             <StyledFormAdd onSubmit={handleAttendeeAdd}>
@@ -132,7 +169,8 @@ export const Attendees = () => {
                 <Button margin={"min"}>Add</Button>
             </StyledFormAdd>
             {attendees.map((attendee) => 
-                <AttendeesListItem key={attendee.id}>
+                <AttendeesListItem key={attendee.id} onClick={() => handleDeleteAttendee(attendee.id)}>
+                    <HoverOverlay><Trash/></HoverOverlay>
                     <AttendeeInfo>{attendee.name}</AttendeeInfo>&ensp;
                     <AttendeeInfo>{attendee.surname}</AttendeeInfo>&ensp;
                     <AttendeeInfo>{attendee.email}</AttendeeInfo>&ensp;

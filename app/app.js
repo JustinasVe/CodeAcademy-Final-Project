@@ -63,6 +63,25 @@ app.post('/attendees', verifyToken, (req, res) => {
     )
 });
 
+app.delete('/attendees/:id', verifyToken, (req, res) => {
+    const { id } = req.params;
+    const { id: userId } = getUserFromToken(req);
+
+    connection.execute(
+        'DELETE FROM attendees WHERE id=? AND userId=?',
+        [id, userId],
+        () => {
+            connection.execute(
+                'SELECT * FROM attendees WHERE userId=?',
+                [userId],
+                (err, attendees) => {
+                    res.send(attendees);
+                }
+            )
+        }
+    )
+});
+
 app.post('/register', (req, res) => {
     const { name, surname, email, password } = req.body;
     const hashedPassword = bcrypt.hashSync(password, 12);
