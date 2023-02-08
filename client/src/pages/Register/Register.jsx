@@ -5,6 +5,14 @@ import { Input } from "../../components/Input/Input";
 import styled from "styled-components";
 
 const MainContainer = styled.div`
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+`
+
+const RegisterContainer = styled.div`
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -85,38 +93,40 @@ export const Register = () => {
 
     return (
         <MainContainer>
-            <RegisterText>Register</RegisterText>
-                <StyledForm onSubmit={handleRegister} disabled={isLoading} >
-                    <Input 
-                        placeholder="Name"
-                        onChange={(e) => setName(e.target.value)}
-                        required
-                        value={name}
-                    />
-                    <Input 
-                        placeholder="Surname"
-                        onChange={(e) => setSurname(e.target.value)}
-                        required
-                        value={surname}
-                    />
-                    <Input 
-                        placeholder="Email"
-                        type="email"
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                        value={email}
-                    />
-                    <Input 
-                        placeholder="Password"
-                        type="password" 
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                        value={password}
-                    />
-                    {error && <ErrorStyled>{error}</ErrorStyled>}
-                    <Button>Register</Button>
-                    <Link to="/login">Login</Link>
-                </StyledForm>
+            <RegisterContainer>
+                <RegisterText>Register</RegisterText>
+                    <StyledForm onSubmit={handleRegister} disabled={isLoading} >
+                        <Input 
+                            placeholder="Name"
+                            onChange={(e) => setName(e.target.value)}
+                            required
+                            value={name}
+                        />
+                        <Input 
+                            placeholder="Surname"
+                            onChange={(e) => setSurname(e.target.value)}
+                            required
+                            value={surname}
+                        />
+                        <Input 
+                            placeholder="Email"
+                            type="email"
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                            value={email}
+                        />
+                        <Input 
+                            placeholder="Password"
+                            type="password" 
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                            value={password}
+                        />
+                        {error && <ErrorStyled>{error}</ErrorStyled>}
+                        <Button>Register</Button>
+                        <Link to="/login">Login</Link>
+                    </StyledForm>
+            </RegisterContainer>
         </MainContainer>
     )
 }

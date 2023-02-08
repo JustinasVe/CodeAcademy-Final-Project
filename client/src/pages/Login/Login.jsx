@@ -7,6 +7,14 @@ import { UserContext } from "../../contexts/UserContextWrapper";
 import styled from "styled-components";
 
 const MainContainer = styled.div`
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+`
+
+const LoginContainer = styled.div`
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -88,24 +96,26 @@ export const Login = () => {
 
     return (
         <MainContainer>
-            <EventsOrganizerText>Events Organizer</EventsOrganizerText>
-                <StyledForm onSubmit={handleLogin} disabled={isLoading} >
-                    <Input 
-                        placeholder="Email"
-                        type="email"
-                        onChange={(e) => setEmail(e.target.value)}
-                        value={email}
-                    />
-                    <Input 
-                        placeholder="Password"
-                        type="password" 
-                        onChange={(e) => setPassword(e.target.value)}
-                        value={password}
-                    />
-                    {error && <ErrorStyled>{error}</ErrorStyled>}
-                    <Button>Login</Button>
-                    <Link to="/register">Register</Link>
-                </StyledForm>
+            <LoginContainer>
+                <EventsOrganizerText>Events Organizer</EventsOrganizerText>
+                    <StyledForm onSubmit={handleLogin} disabled={isLoading} >
+                        <Input 
+                            placeholder="Email"
+                            type="email"
+                            onChange={(e) => setEmail(e.target.value)}
+                            value={email}
+                        />
+                        <Input 
+                            placeholder="Password"
+                            type="password" 
+                            onChange={(e) => setPassword(e.target.value)}
+                            value={password}
+                        />
+                        {error && <ErrorStyled>{error}</ErrorStyled>}
+                        <Button>Login</Button>
+                        <Link to="/register">Register</Link>
+                    </StyledForm>
+            </LoginContainer>
         </MainContainer>
     )
 }

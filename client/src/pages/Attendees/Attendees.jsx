@@ -6,6 +6,17 @@ import { UserContext } from "../../contexts/UserContextWrapper";
 import styled from "styled-components";
 import { Trash } from "phosphor-react"
 
+const AttendeesListWrapper = styled.div`
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+`
+const AttendeesListTittle = styled.h1`
+    color: #008b8b;
+    letter-spacing: 0.2rem;
+`
+
 const AttendeesList = styled.ul`
     display: flex;
     flex-direction: column;
@@ -137,46 +148,49 @@ export const Attendees = () => {
     }
 
     return (
-        <AttendeesList>
-            <StyledFormAdd onSubmit={handleAttendeeAdd}>
-                <Input 
-                    placeholder="Name" 
-                    required 
-                    onChange={(e) => setName(e.target.value)}
-                    value={name}
-                />
-                <Input 
-                    placeholder="Surname" 
-                    required
-                    onChange={(e) => setSurname(e.target.value)}
-                    value={surname}
-                />
-                <Input 
-                    placeholder="Email" 
-                    required 
-                    type="email" 
-                    onChange={(e) => setEmail(e.target.value)}
-                    value={email}
-                />
-                <Input 
-                    placeholder="Mob: 86XXXXXXX" 
-                    required 
-                    type="number"
-                    min="0"
-                    onChange={(e) => setPhoneNumber(e.target.value)}
-                    value={phoneNumber}
-                />
-                <Button margin={"min"}>Add</Button>
-            </StyledFormAdd>
-            {attendees.map((attendee) => 
-                <AttendeesListItem key={attendee.id} onClick={() => handleDeleteAttendee(attendee.id)}>
-                    <HoverOverlay><Trash/></HoverOverlay>
-                    <AttendeeInfo>{attendee.name}</AttendeeInfo>&ensp;
-                    <AttendeeInfo>{attendee.surname}</AttendeeInfo>&ensp;
-                    <AttendeeInfo>{attendee.email}</AttendeeInfo>&ensp;
-                    <AttendeeInfo>{attendee.phoneNumber}</AttendeeInfo>
-                </AttendeesListItem>
-            )}
-        </AttendeesList>
+        <AttendeesListWrapper>
+            <AttendeesListTittle>Attendees list of upcoming event:</AttendeesListTittle>
+                <AttendeesList>
+                    <StyledFormAdd onSubmit={handleAttendeeAdd}>
+                        <Input 
+                            placeholder="Name" 
+                            required 
+                            onChange={(e) => setName(e.target.value)}
+                            value={name}
+                        />
+                        <Input 
+                            placeholder="Surname" 
+                            required
+                            onChange={(e) => setSurname(e.target.value)}
+                            value={surname}
+                        />
+                        <Input 
+                            placeholder="Email" 
+                            required 
+                            type="email" 
+                            onChange={(e) => setEmail(e.target.value)}
+                            value={email}
+                        />
+                        <Input 
+                            placeholder="Mob: 86XXXXXXX" 
+                            required 
+                            type="number"
+                            min="0"
+                            onChange={(e) => setPhoneNumber(e.target.value)}
+                            value={phoneNumber}
+                        />
+                        <Button margin={"min"}>Add</Button>
+                    </StyledFormAdd>
+                    {attendees.map((attendee) => 
+                        <AttendeesListItem key={attendee.id} onClick={() => handleDeleteAttendee(attendee.id)}>
+                            <HoverOverlay><Trash/></HoverOverlay>
+                            <AttendeeInfo>{attendee.name}</AttendeeInfo>&ensp;
+                            <AttendeeInfo>{attendee.surname}</AttendeeInfo>&ensp;
+                            <AttendeeInfo>{attendee.email}</AttendeeInfo>&ensp;
+                            <AttendeeInfo>{attendee.phoneNumber}</AttendeeInfo>
+                        </AttendeesListItem>
+                    )}
+                </AttendeesList>
+        </AttendeesListWrapper>
     );
 };
