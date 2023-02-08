@@ -11,6 +11,7 @@ const AttendeesListWrapper = styled.div`
     display: flex;
     flex-direction: column;
     gap: 25px;
+    margin-top: 90px;
 `
 const AttendeesListTittle = styled.h1`
     color: #008b8b;
