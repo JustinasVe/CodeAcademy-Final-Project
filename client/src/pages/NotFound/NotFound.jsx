@@ -6,6 +6,7 @@ const NotFoundStyled = styled.div`
     display: flex;
     flex-direction: column;
     font-size: 25px;
+    gap: 30px;
     height: 100vh;
     justify-content: center;
 `;

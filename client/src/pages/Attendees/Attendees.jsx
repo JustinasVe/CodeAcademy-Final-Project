@@ -3,6 +3,45 @@ import { Button } from "../../components/Button/Button";
 import { Input } from "../../components/Input/Input";
 import { LOCAL_STORAGE_JWT_TOKEN_KEY } from "../../constants/constants";
 import { UserContext } from "../../contexts/UserContextWrapper";
+import styled from "styled-components";
+
+const AttendeesList = styled.ul`
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background-color: #ffffff;
+`;
+
+const AttendeesListItem = styled.li`
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: 0 5px 7px -1px rgb(51 51 51 / 23%);
+    /* cursor: pointer; */
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+    padding: 10px 30px;
+    position: relative;
+`;
+
+const AttendeeInfo = styled.span`
+    color: #0000cd;
+    font-size: 20px;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+`;
+
+const StyledFormAdd = styled.form`
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    height: 20%;
+    width: 100%;
+    justify-content: space-around;
+    justify-content: center;
+`;
 
 export const Attendees = () => {
     const [attendees, setAttendees] = useState([]);
@@ -61,8 +100,8 @@ export const Attendees = () => {
     }
 
     return (
-        <div>
-            <form onSubmit={handleAttendeeAdd}>
+        <AttendeesList>
+            <StyledFormAdd onSubmit={handleAttendeeAdd}>
                 <Input 
                     placeholder="Name" 
                     required 
@@ -90,16 +129,16 @@ export const Attendees = () => {
                     onChange={(e) => setPhoneNumber(e.target.value)}
                     value={phoneNumber}
                 />
-                <Button>Add</Button>
-            </form>
+                <Button margin={"min"}>Add</Button>
+            </StyledFormAdd>
             {attendees.map((attendee) => 
-                <div key={attendee.id}>
-                    <span>{attendee.name}</span>&ensp;
-                    <span>{attendee.surname}</span>&ensp;
-                    <span>{attendee.email}</span>&ensp;
-                    <span>{attendee.phoneNumber}</span>
-                </div>
+                <AttendeesListItem key={attendee.id}>
+                    <AttendeeInfo>{attendee.name}</AttendeeInfo>&ensp;
+                    <AttendeeInfo>{attendee.surname}</AttendeeInfo>&ensp;
+                    <AttendeeInfo>{attendee.email}</AttendeeInfo>&ensp;
+                    <AttendeeInfo>{attendee.phoneNumber}</AttendeeInfo>
+                </AttendeesListItem>
             )}
-        </div>
+        </AttendeesList>
     );
 };
