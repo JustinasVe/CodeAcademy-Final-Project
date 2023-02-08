@@ -1,51 +1,11 @@
 import { useContext, useState } from "react"
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContextWrapper";
-import styled from "styled-components";
 import LOCAL_STORAGE_JWT_TOKEN_KEY from "../../constants";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
-
-const MainContainer = styled.div`
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    height: 100vh;
-    width: 100vw;
-`
-
-const LoginContainer = styled.div`
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    height: 80vh;
-    width: 30vw;
-    background: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135,0.37);
-    backdrop-filter: blur(8.5px);
-    border-radius: 10px;
-`;
-
-const EventsOrganizerText = styled.h1`
-    margin: 3rem 0 2rem 0;
-`;
-
-const StyledForm = styled.form`
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    height: 20%;
-    width: 100%;
-    /* justify-content: space-around; */
-`;
-
-const ErrorStyled = styled.div`
-    color: red;
-    font-weight: bold;
-    letter-spacing: 5px;
-    text-align: center;
-`;
-
+import { MainContainer, LoginContainer, EventsOrganizerText} from "./LoginStyled";
+import { StyledForm, ErrorStyled } from "./LoginStyled";
 
 export const Login = () => {
     const [email, setEmail] = useState('');
